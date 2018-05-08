@@ -1,0 +1,17 @@
+<h1>Posts of <a href="mailto:<%= @view_data[:user].email%>"> <%= @view_data[:user].username %> </a> </h1>
+<h3><a href="../">Go back </a></h3>
+<ul>
+  <% @view_data[:posts].each do |post| %>
+    <li>
+      <p>Name: <%= post.name %> </p>
+      <p>URL: <a target="_blank" href="<%= post.url %>"> <%= post.url %> </a></p>
+      <p>From <%= post.user.username %> </p>
+      <p>Votes: <a  href="/upvote/<%= post.id%>" > <%= post.votes %> </a></p>
+      <% if session[:id]. == post.user.id %>
+      <p><a  href="/delete/<%= post.id%>" > Delete </a></p>
+      <% end %>
+
+
+    </li>
+  <% end %>
+</ul>

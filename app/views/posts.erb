@@ -1,0 +1,45 @@
+<h1>Hacker News - Swen Version</h1>
+<% if session[:user]. != nil %>
+<h3> Welcome <%= session[:user].username %></h3>
+<% end %>
+
+<% if session[:user]. != nil %>
+<a href="/logout"> Logout </a>
+<% end %>
+
+<% if session[:user]. == nil %>
+<form action="/login" method="POST">
+  <p>
+  <input type="text" name="username" value="username">
+  <input type="password" name="password" value="password">
+</p>
+  <input type="submit" value="Login">
+  <a href="/register"> Register </a>
+</form>
+<% end %>
+
+<% if session[:user]. != nil %>
+<form action="/post" method="POST">
+  <p>
+  <input type="text" name="title" value="title">
+  <input type="text" name="url" value="url">
+</p>
+  <input type="submit" value="Post">
+</form>
+<% end %>
+
+<p>  </p>
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <p>Name: <%= post.name %> </p>
+      <p>URL: <a target="_blank" href="<%= post.url %>"> <%= post.url %> </a></p>
+      <p>From <a  href="/user/<%= post.user.id%>" > <%= post.user.username %> </a></p>
+      <p>Votes: <a  href="/upvote/<%= post.id%>" > <%= post.votes %> </a></p>
+      <% if session[:id]. == post.user.id %>
+      <p><a  href="/delete/<%= post.id%>" > Delete </a></p>
+      <% end %>
+
+    </li>
+  <% end %>
+</ul>
